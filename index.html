@@ -86,12 +86,18 @@
 
     // Fetch and display data
     fetch(jsonUrl)
-      .then(response => response.json())
-      .then(data => {
-        populateTable('home-stats-table', data.home_stats_table);
-        populateTable('away-stats-table', data.away_stats_table);
-      })
-      .catch(error => console.error('Error fetching data:', error));
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("Fetched Data:", data); // Log the fetched data
+    populateTable('home-stats-table', data.home_stats_table);
+    populateTable('away-stats-table', data.away_stats_table);
+  })
+  .catch(error => console.error('Error fetching data:', error));
   </script>
 </body>
 </html>
