@@ -89,6 +89,29 @@
     .score-4 { background-color: #a0e057; color: #000; }
     .score-5 { background-color: #47d147; color: #fff; }
 
+    /* Header Hover Styling */
+    th {
+    position: relative;
+    cursor: pointer;
+  }
+
+  th:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: -30px;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease-in-out;
+  }
   </style>
 </head>
 <body>
@@ -100,12 +123,12 @@
       <thead>
         <tr>
           <th>Team</th>
-          <th title="Frequency which the team scores 2 or more goals, 5 being the top rating at >80% occurrence.">Scored 2+</th>
-          <th title="Frequency which the team fails to score, 1 being the worst rating if they are kept out in >80% of fixtures.">Scored None</th>
-          <th title="Frequency which the team keeps a clean sheet, 5 being the top rating keeping a CS in >80% of fixtures.">Conceded None</th>
-          <th title="Frequency which the team concedes 2 or more goals, 5 being the top rating conceding less than 2 goals in >80% fixtures.">Conceded >2</th>
-          <th title="Blended rating of attacking scores, weighted towards frequency of scoring 2 or more goals.">Attacking Score</th>
-          <th title="Blended rating of defensive scores, weighted towards frequency of keeping clean sheets.">Defensive Score</th>
+          <th data-tooltip="Frequency which the team scores 2 or more goals, 5 being the top rating at >80% occurrence.">Scored 2+</th>
+          <th data-tooltip="Frequency which the team fails to score, 1 being the worst rating if they are kept out in >80% of fixtures.">Scored None</th>
+          <th data-tooltip="Frequency which the team keeps a clean sheet, 5 being the top rating keeping a CS in >80% of fixtures.">Conceded None</th>
+          <th data-tooltip="Frequency which the team concedes 2 or more goals, 5 being the top rating conceding less than 2 goals in >80% fixtures.">Conceded >2</th>
+          <th data-tooltip="Blended rating of attacking scores, weighted towards frequency of scoring 2 or more goals.">Attacking Score</th>
+          <th data-tooltip="Blended rating of defensive scores, weighted towards frequency of keeping clean sheets.">Defensive Score</th>
         </tr>
       </thead>
       <tbody>
@@ -118,12 +141,12 @@
       <thead>
         <tr>
           <th>Team</th>
-          <th title="Frequency which the team scores 2 or more goals, 5 being the top rating at >80% occurrence.">Scored 2+</th>
-          <th title="Frequency which the team fails to score, 1 being the worst rating if they are kept out in >80% of fixtures.">Scored None</th>
-          <th title="Frequency which the team keeps a clean sheet, 5 being the top rating keeping a CS in >80% of fixtures.">Conceded None</th>
-          <th title="Frequency which the team concedes 2 or more goals, 5 being the top rating conceding less than 2 goals in >80% fixtures.">Conceded >2</th>
-          <th title="Blended rating of attacking scores, weighted towards frequency of scoring 2 or more goals.">Attacking Score</th>
-          <th title="Blended rating of defensive scores, weighted towards frequency of keeping clean sheets.">Defensive Score</th>
+          <th data-tooltip="Frequency which the team scores 2 or more goals, 5 being the top rating at >80% occurrence.">Scored 2+</th>
+          <th data-tooltip="Frequency which the team fails to score, 1 being the worst rating if they are kept out in >80% of fixtures.">Scored None</th>
+          <th data-tooltip="Frequency which the team keeps a clean sheet, 5 being the top rating keeping a CS in >80% of fixtures.">Conceded None</th>
+          <th data-tooltip="Frequency which the team concedes 2 or more goals, 5 being the top rating conceding less than 2 goals in >80% fixtures.">Conceded >2</th>
+          <th data-tooltip="Blended rating of attacking scores, weighted towards frequency of scoring 2 or more goals.">Attacking Score</th>
+          <th data-tooltip="Blended rating of defensive scores, weighted towards frequency of keeping clean sheets.">Defensive Score</th>
         </tr>
       </thead>
       <tbody>
