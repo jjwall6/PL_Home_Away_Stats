@@ -3,128 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PREMIER LEAGUE TEAM STATS</title>
+  <title>Premier League Team Stats</title>
   <style>
     /* Global Styles */
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
     }
 
     h1, h2 {
-      text-align: center;
-      margin: 20px 0;
-      color: #222;
+      margin: 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
+      color: #f8b400;
     }
 
     h2 {
-      font-size: 1.8rem;
-      color: #555;
+      font-size: 1.5rem;
+      color: #ffffff;
+      border-bottom: 2px solid #f8b400;
+      display: inline-block;
+      padding-bottom: 4px;
     }
 
-    /* Table Styles */
-    table {
+    /* Table Styling */
+    .table-container {
       width: 90%;
-      margin: 20px auto;
+      margin: 15px auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
       border-collapse: collapse;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
+      margin-bottom: 15px;
     }
 
     th, td {
-      padding: 12px 16px;
+      padding: 6px;  /* Reduced padding */
+      font-size: 14px; /* Slightly smaller font */
       text-align: center;
-      border-bottom: 1px solid #ddd;
+      border: 1px solid #444;
     }
 
     th {
-      background-color: #333;
-      color: #fff;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
+      background-color: #1e1e1e;
+      color: #f8b400;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    td {
-      font-size: 0.9rem;
-      color: #555;
+    /* Conditional Formatting */
+    .score {
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 3px 5px; /* Reduced padding */
+      transition: background 0.3s ease;
     }
 
-    tr:hover {
-      background-color: #f2f2f2;
-    }
+    /* Gradient Coloring */
+    .score-1 { background-color: #ff4d4d; color: #fff; }
+    .score-2 { background-color: #ff944d; color: #fff; }
+    .score-3 { background-color: #ffd24d; color: #000; }
+    .score-4 { background-color: #a0e057; color: #000; }
+    .score-5 { background-color: #47d147; color: #fff; }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      table {
-        width: 100%;
-      }
-
-      h1, h2 {
-        font-size: 1.5rem;
-        padding: 10px;
-      }
-
-      th, td {
-        padding: 10px 12px;
-      }
-    }
   </style>
 </head>
 <body>
-  <h1>PREMIER LEAGUE TEAM STATS</h1>
+  <h1>Premier League Team Stats</h1>
 
-  <h2>HOME PERFORMANCE</h2>
-  <table id="home-stats-table">
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>Scored 2+</th>
-        <th>Scored None</th>
-        <th>Conceded None</th>
-        <th>Conceded >2</th>
-        <th>Attacking Score</th>
-        <th>Defensive Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Home stats data will be populated here -->
-    </tbody>
-  </table>
+  <div class="table-container">
+    <h2>Home Performance</h2>
+    <table id="home-stats-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Scored 2+ Rank</th>
+          <th>Scored None Rank</th>
+          <th>Conceded None Rank</th>
+          <th>Conceded >2 Rank</th>
+          <th>Attacking Score</th>
+          <th>Defensive Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Home stats data will be populated here -->
+      </tbody>
+    </table>
 
-  <h2>AWAY PERFORMANCE</h2>
-  <table id="away-stats-table">
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>Scored 2+</th>
-        <th>Scored None</th>
-        <th>Conceded None</th>
-        <th>Conceded >2</th>
-        <th>Attacking Score</th>
-        <th>Defensive Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Away stats data will be populated here -->
-    </tbody>
-  </table>
+    <h2>Away Performance</h2>
+    <table id="away-stats-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Scored 2+ Rank</th>
+          <th>Scored None Rank</th>
+          <th>Conceded None Rank</th>
+          <th>Conceded >2 Rank</th>
+          <th>Attacking Score</th>
+          <th>Defensive Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Away stats data will be populated here -->
+      </tbody>
+    </table>
+  </div>
 
   <script>
     // URL of the JSON file in your S3 bucket
     const jsonUrl = 'https://team-stats-bucket.s3.eu-north-1.amazonaws.com/team_stats.json';
 
-    // Function to populate a table
+    // Function to determine class based on value
+    function getScoreClass(value) {
+      return `score-${value}`;
+    }
+
+    // Function to populate a table with conditional formatting
     function populateTable(tableId, data) {
       const tableBody = document.getElementById(tableId).querySelector('tbody');
       tableBody.innerHTML = ''; // Clear existing data if any
@@ -132,12 +137,12 @@
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${team.team}</td>
-          <td>${team.scored_2_plus_rank}</td>
-          <td>${team.scored_none_rank}</td>
-          <td>${team.conceded_none_rank}</td>
-          <td>${team.conceded_2_or_more_rank}</td>
-          <td>${team.attacking_score}</td>
-          <td>${team.defensive_score}</td>
+          <td class="score ${getScoreClass(team.scored_2_plus_rank)}">${team.scored_2_plus_rank}</td>
+          <td class="score ${getScoreClass(team.scored_none_rank)}">${team.scored_none_rank}</td>
+          <td class="score ${getScoreClass(team.conceded_none_rank)}">${team.conceded_none_rank}</td>
+          <td class="score ${getScoreClass(team.conceded_2_or_more_rank)}">${team.conceded_2_or_more_rank}</td>
+          <td class="score ${getScoreClass(Math.round(team.attacking_score))}">${team.attacking_score}</td>
+          <td class="score ${getScoreClass(Math.round(team.defensive_score))}">${team.defensive_score}</td>
         `;
         tableBody.appendChild(row);
       });
@@ -152,7 +157,7 @@
         return response.json();
       })
       .then(data => {
-        console.log("Fetched Data:", data); // Log the fetched data
+        console.log("Fetched Data:", data);
         populateTable('home-stats-table', data.home_stats_table);
         populateTable('away-stats-table', data.away_stats_table);
       })
